@@ -20,9 +20,11 @@ htable htable_new(int capacity, hashing_t hashing_type) {
     h->num_keys = 0;
     h->freqs = emalloc(h->capacity * sizeof h->freqs[0]);
     h->keys = emalloc(h->capacity * sizeof h->keys[0]);
+    h->stats = emalloc(h->capacity *sizeof h->stats[0]);
     for (i = 0; i < h->capacity; i++){
         h->freqs[i] = 0;
         h->keys[i] = NULL;
+        h->stats[i] = 0;
     }
 
     h->method = hashing_type;
@@ -58,6 +60,7 @@ int htable_insert(htable h, char *str){
     if (h->keys[indexed_string] == NULL){
         h->keys[indexed_string] = copied_str;
         h->freqs[indexed_string] = 1;
+        h->stats[h->num_keys] = 0;
         h->num_keys++;
         return 1;
 
@@ -86,6 +89,7 @@ int htable_insert(htable h, char *str){
             } else if (h->keys[i] == NULL){
                 h->keys[i] = copied_str;
                 h->freqs[i] = 1;
+                h->stats[h->num_keys] = collisions;
                 h->num_keys++;
                 return 1;
             }
@@ -95,6 +99,10 @@ int htable_insert(htable h, char *str){
         return h->freqs[i];
     }
 }
+
+static void print_info(int freq, char *word) {
+    printf("%-4d %s\n", freq, word);
+} /* WHAT TO DO WITH THIS???? */
 
 void htable_print(htable h, FILE *stream) {
     int i = 0;
@@ -116,6 +124,7 @@ void htable_free(htable h) {
     
     free(h->keys);
     free(h->freqs);
+    free(h->stats);
     free(h);
 }
 
@@ -156,12 +165,24 @@ int htable_search(htable h, char *str){
 
 void htable_print_entire_table(htable h, FILE *stream) {
     int i = 0;
+    /* int index = 1;*/
+    fprintf(stream, "  Pos  Freq  Stats  Word\n");
+    fprintf(stream, "----------------------------------------\n");
+    for (i = 0; i < h->capacity; i++){
+        /*if ((h->keys[i]) != NULL){*/      
+        fprintf(stream, "%5d %5d %5d   %s\n", i, h->freqs[i], h->stats[i],
+                h->keys[i] != NULL ? h->keys[i] : "");
+            /*}*/
+    }
+
+    
+    /* int i = 0;
     for (i = 0; i < h->capacity; i++){
         if ((h->keys[i]) != NULL){
-            /* fprintf(stream, "\%5d \%5d \%5d   \%s\n", h->freqs[i],
-               h->keys[i]);*/
+            fprintf(stream, "\%5d \%5d \%5d   \%s\n", h->freqs[i],
+               h->keys[i]);
         }
-    }
+        }*/
 }
 
 /**
