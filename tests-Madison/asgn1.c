@@ -4,9 +4,13 @@
 #include "mylib.h"
 #include "htable.h"
 
+static void print_info(int freq, char *word) {
+    printf("%-4d %s\n", freq, word);
+}
+
 static int isPrime(int i){
     int x;
-    for(x=2; x < i/2; x++){
+    for(x=2; x <= i/2; x++){
         if(i % x == 0){
             return 0;
         }
@@ -38,74 +42,74 @@ int main(int argc, char **argv) {
     /* int is_Double_H = 0; 1 for yes, 0 for no*/
     int options[5] = {0, 0, 0, 0, 0}; /* {0 = linear 1 = double, e = 1 option run, p =
                                        1 option run, s = how many snapshots, 1 = tablesize set*/
-    
-
-    while ((option = getopt(argc, argv, optstring)) != EOF) {
-        switch (option) {
-            case 'd':
-                /* do something */
-                options[0] = 1;
-                break;
+    if(arc > 0){
+        while ((option = getopt(argc, argv, optstring)) != EOF) {
+            switch (option) {
+                case 'd':
+                    /* do something */
+                    options[0] = 1;
+                    break;
                 
                     /* int i = 0;
-                if (argc == 2){
-                    h = htable_new(default_capacity, DOUBLE_H);
-                } else {
-                    for (i = 1; i < argc; i++){
-                        if (getopt(arc, argv, optstring) == )
-                    }
-                    }*/
+                       if (argc == 2){
+                       h = htable_new(default_capacity, DOUBLE_H);
+                       } else {
+                       for (i = 1; i < argc; i++){
+                       if (getopt(arc, argv, optstring) == )
+                       }
+                       }*/
                 
-            case 'e':
-                /* the argument after the -b is available
-                   in the global variable ’optarg’ */
-                options[1] = 1;
-                break;
+                case 'e':
+                    /* the argument after the -b is available
+                       in the global variable ’optarg’ */
+                    options[1] = 1;
+                    break;
                 
-            case 'p':
-                /* do something else */
-                options[2] = 1;
-                break;
+                case 'p':
+                    /* do something else */
+                    options[2] = 1;
+                    break;
 
-            case 's':
-                options[3] = sscanf(optarg, "%d", &options[3]);
-                break;
+                case 's':
+                    options[3] = sscanf(optarg, "%d", &options[3]);
+                    break;
 
-            case 't':
-                sscanf(optarg, "%d", &capacity);
-                capacity = prime_greater(capacity);
-                options[4] = 1;
-                break;
-                /* h = htable_new(prime_greater(capacity), DOUBLE_H); */
-            case 'h':
+                case 't':
+                    sscanf(optarg, "%d", &capacity);
+                    capacity = prime_greater(capacity);
+                    options[4] = 1;
+                    break;
+                    /* h = htable_new(prime_greater(capacity), DOUBLE_H); */
+                case 'h':
                
-                fprintf(stdout, "help info");
-                /*"Perform various operations using a hash table.  By default, \
-words are read from stdin and added to the hash table, before being printed out\
-alongside their frequencies to stdout.
+                    fprintf(stdout, "help info");
+                    /*"Perform various operations using a hash table.  By default, \
+                      words are read from stdin and added to the hash table, before being printed out\
+                      alongside their frequencies to stdout.
 
- -d           Use double hashing (linear probing is the default)\
- -e           Display entire contents of hash table on stderr\
- -p           Print stats info instead of frequencies & words\
- -s SNAPSHOTS Show SNAPSHOTS stats snapshots (if -p is used)\
- -t TABLESIZE Use the first prime >= TABLESIZE as htable size\
+                      -d           Use double hashing (linear probing is the default)\
+                      -e           Display entire contents of hash table on stderr\
+                      -p           Print stats info instead of frequencies & words\
+                      -s SNAPSHOTS Show SNAPSHOTS stats snapshots (if -p is used)\
+                      -t TABLESIZE Use the first prime >= TABLESIZE as htable size\
 
- -h           Display this message");*/
-                return EXIT_SUCCESS;
+                      -h           Display this message");*/
+                    return EXIT_SUCCESS;
                 
-            default:
-                /* if an unknown option is given */
-                fprintf(stdout, "help info invalid option"); /*"Perform various operations using a hash table.  By default, words are\n read from stdin and added to the hash table, before being printed out\n
-alongside their frequencies to stdout.\n\n
+                default:
+                    /* if an unknown option is given */
+                    fprintf(stdout, "help info invalid option"); /*"Perform various operations using a hash table.  By default, words are\n read from stdin and added to the hash table, before being printed out\n
+                                                                   alongside their frequencies to stdout.\n\n
 
- -d           Use double hashing (linear probing is the default)\n
- -e           Display entire contents of hash table on stderr\n
- -p           Print stats info instead of frequencies & words\n
- -s SNAPSHOTS Show SNAPSHOTS stats snapshots (if -p is used)\n
- -t TABLESIZE Use the first prime >= TABLESIZE as htable size\n
+                                                                   -d           Use double hashing (linear probing is the default)\n
+                                                                   -e           Display entire contents of hash table on stderr\n
+                                                                   -p           Print stats info instead of frequencies & words\n
+                                                                   -s SNAPSHOTS Show SNAPSHOTS stats snapshots (if -p is used)\n
+                                                                   -t TABLESIZE Use the first prime >= TABLESIZE as htable size\n
 
- -h           Display this message\n");*/
-                return EXIT_SUCCESS;
+                                                                   -h           Display this message\n");*/
+                    return EXIT_SUCCESS;
+            }
         }
     }
 
@@ -139,15 +143,15 @@ alongside their frequencies to stdout.\n\n
     /*  if (argc > 1){
         sscanf(argv[1], "%d", &capacity);
         h = htable_new(capacity, DOUBLE_H);      
-    } else {
+        } else {
         h = htable_new(default_capacity, DOUBLE_H);
-    }
+        }
 
-    while (getword(word, sizeof word, stdin) != EOF) {
+        while (getword(word, sizeof word, stdin) != EOF) {
         htable_insert(h, word);
-    }
+        }
 
-    htable_print(h, stdout);
+        htable_print(h, stdout);
 
     */
     htable_free(h);  
