@@ -47,4 +47,12 @@ With these results, we can see that the percent of keys placed at home is
 relatively similar between the two strategies. The maximum number of collisions
 starts out similar when the table is emptier, but as it becomes fuller, it
 increases quicker with linear probing than double hashing and the same case
-follows for double hashing
+follows for double hashing.
+
+Therefore, if we believe that the input will not fill up much of the hash table,
+it will be okay to use either linear probing or double hashing as they have
+similar statistics in terms of percent at home, average collisions and maximum
+collisions. But, if the input is going to fill up the majority of the table,
+double hashing will be better. And therefore, if we are not sure how full the
+hash table will be, it would be better to use double hashing as the collision
+resolution strategy.
