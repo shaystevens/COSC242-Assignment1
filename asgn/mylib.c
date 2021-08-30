@@ -4,8 +4,14 @@
 #include <stdlib.h> /* for size_t, malloc, realloc, exit */
 #include "mylib.h"
 
+/**
+ * Allocates memory and includes error checking.
+ *
+ * @param s - size_t, how much memory to allocate.
+ *
+ * @return result - indicates successful memory allocation.
+ */
 void *emalloc(size_t s) {
-    /* implementation of emalloc goes here */
     void *result = malloc(s);
     if (NULL == result) {
         fprintf(stderr, "Memory allocation failed!\n");
@@ -14,16 +20,13 @@ void *emalloc(size_t s) {
     return result;
 }
 
-void *erealloc(void *p, size_t s) {
-    /* implementation of erealloc goes here */
-    void *result = realloc(p, s);
-    if (NULL == result) {
-        fprintf(stderr, "memory reallocation failed.\n");
-        exit(EXIT_FAILURE);
-    }
-    return result;
-}
-
+/**
+ * Gets the word for us from the stream.
+ *
+ * @param s - char *, the word.
+ * @param limit - int.
+ * @param stream - FILE *, where we are obtaining the word from.
+ */
 int getword(char *s, int limit, FILE *stream) {
     int c;
     char *w = s;
