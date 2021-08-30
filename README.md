@@ -58,7 +58,7 @@ With these results, we can see that the percent of keys placed at home is
 relatively similar between the two strategies. The maximum number of collisions
 starts out similar when the table is emptier, but as it becomes fuller, it
 increases quicker with linear probing than double hashing and the same case
-follows for double hashing.
+follows for average number of collisions.
 
 Therefore, if we believe that the input will not fill up much of the hash table,
 it will be okay to use either linear probing or double hashing as they have
